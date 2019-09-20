@@ -30,24 +30,17 @@ namespace WpfCatalogExplorer
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "DSS files|*.dss";
             if (dlg.ShowDialog() == true)
             {
-
                 using (DSSReader r = new DSSReader(dlg.FileName))
                 {
-
-                    DSSPathCollection paths = r.GetCondensedPathNames(true);
-
+                    DSSPathCollection paths = r.GetCondensedPathNames(true,true,true);
                     grid1.DataTable = paths.ToDataTable();
-
                 }
 
             }
         }
-
-        private void Grid1_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
+ 
     }
 }
