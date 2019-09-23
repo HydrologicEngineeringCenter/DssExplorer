@@ -6,5 +6,5 @@
              xmlns:local="clr-namespace:WpfCatalogExplorer"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DataGrid Name="grid1"/>
+    <DataGrid Name="grid1" />
 </UserControl>
