@@ -25,6 +25,7 @@ namespace WpfCatalogExplorer
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowVM();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -33,11 +34,14 @@ namespace WpfCatalogExplorer
             dlg.Filter = "DSS files|*.dss";
             if (dlg.ShowDialog() == true)
             {
-                using (DSSReader r = new DSSReader(dlg.FileName))
-                {
-                    DSSPathCollection paths = r.GetCondensedPathNames(true,true,true);
-                    grid1.DataTable = paths.ToDataTable();
-                }
+                MainWindowVM vm = (MainWindowVM)DataContext;
+                vm.filePath = dlg.FileName;
+                //Title = dlg.FileName;
+                //using (DSSReader r = new DSSReader(dlg.FileName))
+                //{
+                //    DSSPathCollection paths = r.GetCondensedPathNames(true,true,true);
+                //    grid1.DataTable = paths.ToDataTable();
+                //}
 
             }
         }
