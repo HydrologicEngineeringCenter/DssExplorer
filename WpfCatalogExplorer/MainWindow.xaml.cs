@@ -35,7 +35,7 @@ namespace WpfCatalogExplorer
             if (dlg.ShowDialog() == true)
             {
                 MainWindowVM vm = (MainWindowVM)DataContext;
-                vm.filePath = dlg.FileName;
+                vm.FilePath = dlg.FileName;
                 //Title = dlg.FileName;
                 //using (DSSReader r = new DSSReader(dlg.FileName))
                 //{

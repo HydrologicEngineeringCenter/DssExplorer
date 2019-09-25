@@ -13,10 +13,10 @@ namespace WpfCatalogExplorer
         private string _filePath;
         private System.Data.DataTable _table;
         
-        public string filePath
+        public string FilePath
         {
             get { return _filePath; }
-            set { _filePath = value; NotifyPropertyChanged(); ReadData(); }
+            set { _filePath = value; NotifyPropertyChanged(); ReadData();  }
         }
         public System.Data.DataTable DataTable
         {
@@ -25,7 +25,7 @@ namespace WpfCatalogExplorer
         private void ReadData()
         {
             //set datatable;
-            using (DSSReader r = new DSSReader(filePath))
+            using (DSSReader r = new DSSReader(FilePath))
             {
                 DSSPathCollection paths = r.GetCondensedPathNames(true, true, true);
                 _table = paths.ToDataTable();
