@@ -25,7 +25,7 @@ namespace WpfCatalogExplorer
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowVM();
+            DataContext = new DSSTable();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -34,7 +34,7 @@ namespace WpfCatalogExplorer
             dlg.Filter = "DSS files|*.dss";
             if (dlg.ShowDialog() == true)
             {
-                MainWindowVM vm = (MainWindowVM)DataContext;
+                DSSTable vm = (DSSTable)DataContext;
                 vm.FilePath = dlg.FileName;
                 //Title = dlg.FileName;
                 //using (DSSReader r = new DSSReader(dlg.FileName))
@@ -45,6 +45,41 @@ namespace WpfCatalogExplorer
 
             }
         }
- 
+
+        public void EditTimeSeries(object sender, RoutedEventArgs e)
+        {
+            if (_canExecute())
+            {
+                DSSTable vm = (DSSTable)DataContext;
+                vm.EditTimeSeries(dataGrid.SelectedCells[0].Item)
+            }
+        }
+
+        private void InsertTimeSeries(object sender, RoutedEventArgs e)
+        {
+            if (_canExecute())
+            {
+                DSSTable vm = (DSSTable)DataContext;
+                vm.InsertTimeSeries(dataGrid.SelectedIndex);
+            }
+        }
+
+        private void RemoveTimeSeries(object sender, RoutedEventArgs e)
+        {
+            if (_canExecute())
+            {
+                DSSTable vm = (DSSTable)DataContext;
+                vm.RemoveTimeSeries(dataGrid.SelectedIndex);
+            }
+        }
+
+        private bool _canExecute()
+        {
+            if (dataGrid.SelectedCells.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

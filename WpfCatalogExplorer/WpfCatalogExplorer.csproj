@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DSSIO">
+      <HintPath>..\lib\DSSIO.dll</HintPath>
+    </Reference>
+    <Reference Include="Hec.Dss">
+      <HintPath>..\lib\Hec.Dss.dll</HintPath>
+    </Reference>
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
     </Reference>
@@ -84,7 +90,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindowVM.cs" />
+    <Compile Include="DSSTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,12 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\dotnet\DSSIO\DSSIO-standalone.csproj">
-      <Project>{c8be94c4-e16a-4ca1-a7bd-44c1c010b08f}</Project>
-      <Name>DSSIO-standalone</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

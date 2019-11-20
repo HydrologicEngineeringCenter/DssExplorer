@@ -5,28 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCatalogExplorer"
         mc:Ignorable="d"
-        DataContext="{Binding MainWindowVM}"
-        Title="MainWindow" Height="450" Width="800">
+        DataContext="{Binding DSSTable}"
+        Title="DSS Catalog Explorer" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="36"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="419"/>
         </Grid.RowDefinitions>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem Header="File" Height="19" Width="60">
-                <MenuItem Header="Open..." IsEnabled="True" Click="MenuItem_Click"/>
+                <MenuItem Header="Open..." Click="MenuItem_Click"/>
             </MenuItem>
         </Menu>
-        <Grid Grid.Row="1">
+        <Grid Margin="0,19,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="36"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="383"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Text="{Binding Path=filePath}"/>
-            <DataGrid Grid.Row="1" ItemsSource="{Binding Path=DataTable}">
-                
+            <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=DataTable, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,-16" IsReadOnly="True">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Edit TimeSeries" Click="EditTimeSeries"/>
+                        <MenuItem Header="Insert TimeSeries" Click="InsertTimeSeries"/>
+                        <MenuItem Header="Remove TimeSeries" Click="RemoveTimeSeries"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
-            <!--<local:GridDisplay x:Name="grid1"  Margin="0,19,0,0"  />-->           
+            <!--<local:GridDisplay x:Name="grid1"  Margin="0,19,0,0"  />-->
         </Grid>
 
 
