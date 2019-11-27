@@ -76,7 +76,7 @@ namespace dss_cmd
         }
             void Catalog()
             {
-            var paths = reader.GetCondensedPathNames();
+            var paths = reader.GetCatalog();
                 for (int i = 0; i < paths.Count; i++)
                 {
                     Console.WriteLine("["+i+"]"+  paths[i].FullPath);

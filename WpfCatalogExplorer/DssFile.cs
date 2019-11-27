@@ -31,9 +31,8 @@ namespace WpfCatalogExplorer
         {
             get
             {
-                DSSPathCollection paths = _dssWriter.GetCondensedPathNames(true, true, true);
+                DSSPathCollection paths = _dssWriter.GetCatalog(true);
                 var tbl = paths.ToDataTable();
-                //tbl.Rows.RemoveAt(12);
                 return tbl;
             }
         }
@@ -54,11 +53,6 @@ namespace WpfCatalogExplorer
 
         public void AppendToRegularTimeSeries(string pathname, DSSTimeSeries ts)
         {
-            var cur_ts = _dssWriter.GetTimeSeries(pathname);
-            // check if the inputted TimeSeries is regular and follows the date of the existing TimeSeries
-            if (ts.StartDateTime != cur_ts.Times[cur_ts.Times.Length - 1].AddDays(1) ||
-                ts.IsRegular == false)
-                return;
             ts.Path = pathname;
             _dssWriter.Write(ts);
         }

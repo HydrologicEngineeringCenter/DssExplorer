@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,31 +37,35 @@ namespace WpfCatalogExplorer
             {
                 DSSTable vm = (DSSTable)DataContext;
                 vm.FilePath = dlg.FileName;
-                //Title = dlg.FileName;
-                //using (DSSReader r = new DSSReader(dlg.FileName))
-                //{
-                //    DSSPathCollection paths = r.GetCondensedPathNames(true,true,true);
-                //    grid1.DataTable = paths.ToDataTable();
-                //}
-
             }
         }
 
-        public void EditTimeSeries(object sender, RoutedEventArgs e)
+        private void EditTimeSeries(object sender, RoutedEventArgs e)
         {
             if (_canExecute())
             {
                 DSSTable vm = (DSSTable)DataContext;
-                vm.EditTimeSeries(dataGrid.SelectedCells[0].Item)
+                //vm.EditTimeSeries(dataGrid.SelectedCells[0].Item);
             }
+        }
+
+        private void ViewTimeSeries(object sender, RoutedEventArgs e)
+        {
+            string selectedPath = GetPathFromRow();
+            DSSPath dssPath = new DSSPath(selectedPath);
+            DSSTable vm = (DSSTable)DataContext;
+            DSSReader reader = new DSSReader(vm.FilePath);
+            DSSTimeSeries ts = reader.GetTimeSeries(dssPath);
+            ValueAndTimeTable ValueTimeDisplay = new ValueAndTimeTable(ts);
+            ValueTimeDisplay.Show();
+            reader.Dispose();
         }
 
         private void InsertTimeSeries(object sender, RoutedEventArgs e)
         {
             if (_canExecute())
             {
-                DSSTable vm = (DSSTable)DataContext;
-                vm.InsertTimeSeries(dataGrid.SelectedIndex);
+                //vm.InsertTimeSeries(dataGrid.SelectedIndex);
             }
         }
 
@@ -68,8 +73,7 @@ namespace WpfCatalogExplorer
         {
             if (_canExecute())
             {
-                DSSTable vm = (DSSTable)DataContext;
-                vm.RemoveTimeSeries(dataGrid.SelectedIndex);
+                //vm.RemoveTimeSeries(dataGrid.SelectedIndex);
             }
         }
 
@@ -80,6 +84,22 @@ namespace WpfCatalogExplorer
                 return true;
             }
             return false;
+        }
+
+        private string GetPathFromRow()
+        {
+            DataRowView dataRow = (DataRowView)dataGrid.SelectedItem;
+            string selectedPath = "/";
+            for (int i = 0; i < 6; i++) // only get A-F parts of table
+            {
+                if (i == 3)
+                {
+                    selectedPath += "/";
+                    continue;
+                }
+                selectedPath += dataRow.Row.ItemArray[i].ToString() + "/";
+            }
+            return selectedPath;
         }
     }
 }

@@ -20,30 +20,16 @@ namespace WpfCatalogExplorer
         {
           get { return _table; }
         }
+        public DssFile File
+        {
+            get { return _dssFile; }
+        }
+
         private void ReadData()
         {
-          //set datatable;
           _dssFile = new DssFile(FilePath);
           _table = _dssFile.Catalog;
           NotifyPropertyChanged(nameof(DataTable));
-          //throw new NotImplementedException();
-        }
-
-        public void EditTimeSeries(int line)
-        {
-
-        }
-
-        public void InsertTimeSeries(int line)
-        {
-            
-            NotifyPropertyChanged(nameof(DataTable));
-        }
-
-        public void RemoveTimeSeries(int line)
-        {
-            
-            NotifyPropertyChanged(nameof(DataTable));
         }
 
         protected virtual void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")

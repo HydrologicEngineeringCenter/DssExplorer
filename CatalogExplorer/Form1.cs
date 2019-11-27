@@ -27,7 +27,7 @@ namespace CatalogExplorer
                 using ( DSSReader r = new DSSReader(dlg.FileName))
                 {
 
-                    DSSPathCollection paths = r.GetCondensedPathNames(true);
+                    DSSPathCollection paths = r.GetCatalog(true);
 
                     dataGridView1.DataSource = paths.ToDataTable();
 

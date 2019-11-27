@@ -20,10 +20,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="383"/>
             </Grid.RowDefinitions>
-            <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=DataTable, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,-16" IsReadOnly="True">
+            <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=DataTable}" Margin="0,0,0,-16" IsReadOnly="True" SelectionMode="Single">
                 <DataGrid.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu StaysOpen="False">
                         <MenuItem Header="Edit TimeSeries" Click="EditTimeSeries"/>
+                        <MenuItem Header="View TimeSeries" Click="ViewTimeSeries"/>
                         <MenuItem Header="Insert TimeSeries" Click="InsertTimeSeries"/>
                         <MenuItem Header="Remove TimeSeries" Click="RemoveTimeSeries"/>
                     </ContextMenu>

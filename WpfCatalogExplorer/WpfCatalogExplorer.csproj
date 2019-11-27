@@ -36,8 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DSSIO">
-      <HintPath>..\lib\DSSIO.dll</HintPath>
+    <Reference Include="DSSIO, Version=1.1.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dotnet\Output\x64\Debug\DSSIO.dll</HintPath>
     </Reference>
     <Reference Include="Hec.Dss">
       <HintPath>..\lib\Hec.Dss.dll</HintPath>
@@ -68,6 +69,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ValueTimeDisplay.xaml.cs">
+      <DependentUpon>ValueTimeDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValueTimeTable.cs" />
     <Page Include="Chart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -88,6 +93,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ValueTimeDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DSSTable.cs" />
