@@ -14,16 +14,16 @@ namespace WpfCatalogExplorer
     public class DssFile
     {
         private string _pathToDssFile;
-        private DSSWriter _dssWriter;
+        private Writer _Writer;
         public DssFile(string pathToDssFile)
         {
             _pathToDssFile = pathToDssFile;
-            _dssWriter = new DSSWriter(pathToDssFile);
+            _Writer = new Writer(pathToDssFile);
         }
 
         public void Dispose()
         {
-            _dssWriter.Dispose();
+            _Writer.Dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -31,7 +31,7 @@ namespace WpfCatalogExplorer
         {
             get
             {
-                DSSPathCollection paths = _dssWriter.GetCatalog(true);
+                PathCollection paths = _Writer.GetCatalog(true);
                 var tbl = paths.ToDataTable();
                 return tbl;
             }
@@ -39,33 +39,33 @@ namespace WpfCatalogExplorer
 
         public void Delete(string path)
         {
-            _dssWriter.DeleteRecord(path);
+            _Writer.DeleteRecord(path);
         }
 
         public void InsertEmptyTimeSeries(string path)
         {
             if (path == "")
                 return;
-            DSSTimeSeries ts = new DSSTimeSeries();
+            TimeSeries ts = new TimeSeries();
             ts.Path = path;
-            _dssWriter.Write(ts);
+            _Writer.Write(ts);
         }
 
-        public void AppendToRegularTimeSeries(string pathname, DSSTimeSeries ts)
+        public void AppendToRegularTimeSeries(string pathname, TimeSeries ts)
         {
             ts.Path = pathname;
-            _dssWriter.Write(ts);
+            _Writer.Write(ts);
         }
 
-        public void AppendToIrregularTimeSeries(string pathname, DSSTimeSeries ts)
+        public void AppendToIrregularTimeSeries(string pathname, TimeSeries ts)
         {
             ts.Path = pathname;
-            _dssWriter.Write(ts);
+            _Writer.Write(ts);
         }
 
         public void RemoveFromIrregularTimeSeries(string pathname, int valueIndex)
         {
-            var cur_st = _dssWriter.GetTimeSeries(pathname);
+            var cur_st = _Writer.GetTimeSeries(pathname);
 
             // remove value from value array in TimeSeries
             var valueList = cur_st.Values.ToList();

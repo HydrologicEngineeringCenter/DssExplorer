@@ -16,7 +16,7 @@ namespace WpfCatalogExplorer
         {
             get { return _table; }
         }
-        public ValueTimeTable(DSSTimeSeries ts)
+        public ValueTimeTable(TimeSeries ts)
         {
             _table = ts.ToDataTable(true);
 

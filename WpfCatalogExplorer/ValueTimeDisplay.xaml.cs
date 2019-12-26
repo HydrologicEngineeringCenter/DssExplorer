@@ -20,7 +20,7 @@ namespace WpfCatalogExplorer
     /// </summary>
     public partial class ValueAndTimeTable : Window
     {
-        public ValueAndTimeTable(DSSTimeSeries ts)
+        public ValueAndTimeTable(TimeSeries ts)
         {
             InitializeComponent();
             DataContext = new ValueTimeTable(ts);

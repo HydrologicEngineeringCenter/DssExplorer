@@ -52,10 +52,10 @@ namespace WpfCatalogExplorer
         private void ViewTimeSeries(object sender, RoutedEventArgs e)
         {
             string selectedPath = GetPathFromRow();
-            DSSPath dssPath = new DSSPath(selectedPath);
+            DSSIO.Path dssPath = new DSSIO.Path(selectedPath);
             DSSTable vm = (DSSTable)DataContext;
-            DSSReader reader = new DSSReader(vm.FilePath);
-            DSSTimeSeries ts = reader.GetTimeSeries(dssPath);
+            Reader reader = new Reader(vm.FilePath);
+            TimeSeries ts = reader.GetTimeSeries(dssPath);
             ValueAndTimeTable ValueTimeDisplay = new ValueAndTimeTable(ts);
             ValueTimeDisplay.Show();
             reader.Dispose();
@@ -90,9 +90,9 @@ namespace WpfCatalogExplorer
         {
             DataRowView dataRow = (DataRowView)dataGrid.SelectedItem;
             string selectedPath = "/";
-            for (int i = 0; i < 6; i++) // only get A-F parts of table
+            for (int i = 1; i < 7; i++) // only get A-F parts of table
             {
-                if (i == 3)
+                if (i == 4) // skip date 
                 {
                     selectedPath += "/";
                     continue;
