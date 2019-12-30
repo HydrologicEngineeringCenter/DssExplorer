@@ -1,4 +1,4 @@
-﻿using DSSIO;
+﻿using Hec.Dss;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,11 +14,11 @@ namespace WpfCatalogExplorer
     public class DssFile
     {
         private string _pathToDssFile;
-        private Writer _Writer;
+        private DssWriter _Writer;
         public DssFile(string pathToDssFile)
         {
             _pathToDssFile = pathToDssFile;
-            _Writer = new Writer(pathToDssFile);
+            _Writer = new DssWriter(pathToDssFile);
         }
 
         public void Dispose()
@@ -31,7 +31,7 @@ namespace WpfCatalogExplorer
         {
             get
             {
-                PathCollection paths = _Writer.GetCatalog(true);
+                DssPathCollection paths = _Writer.GetCatalog(true);
                 var tbl = paths.ToDataTable();
                 return tbl;
             }

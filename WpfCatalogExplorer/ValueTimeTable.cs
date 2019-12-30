@@ -1,4 +1,4 @@
-﻿using DSSIO;
+﻿using Hec.Dss;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,10 +16,16 @@ namespace WpfCatalogExplorer
         {
             get { return _table; }
         }
-        public ValueTimeTable(TimeSeries ts)
+        public ValueTimeTable(TimeSeries ts, CatalogProperties catalogProperties)
         {
             _table = ts.ToDataTable(true);
-
+            if (catalogProperties.round != CatalogProperties.Rounding.None)
+            {
+                foreach (DataRow row in _table.Rows)
+                {
+                    row["value"] = catalogProperties.Round((double)row["value"]);
+                }
+            }
             NotifyPropertyChanged(nameof(_table));
         }
 

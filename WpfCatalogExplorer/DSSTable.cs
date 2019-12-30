@@ -1,11 +1,11 @@
-﻿using DSSIO;
+﻿using Hec.Dss;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Input;
 
 namespace WpfCatalogExplorer
 {
-    class DSSTable : System.ComponentModel.INotifyPropertyChanged
+    class DssTable : System.ComponentModel.INotifyPropertyChanged
     {
         private string _filePath;
         private System.Data.DataTable _table;

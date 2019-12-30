@@ -1,4 +1,4 @@
-﻿using DSSIO;
+﻿using Hec.Dss;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +20,10 @@ namespace WpfCatalogExplorer
     /// </summary>
     public partial class ValueAndTimeTable : Window
     {
-        public ValueAndTimeTable(TimeSeries ts)
+        public ValueAndTimeTable(TimeSeries ts, CatalogProperties catalogProperties)
         {
             InitializeComponent();
-            DataContext = new ValueTimeTable(ts);
+            DataContext = new ValueTimeTable(ts, catalogProperties);
         }
     }
 }

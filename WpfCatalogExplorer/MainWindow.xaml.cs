@@ -1,4 +1,4 @@
-﻿using DSSIO;
+﻿using Hec.Dss;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -23,10 +23,12 @@ namespace WpfCatalogExplorer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CatalogProperties catalogProperties;
         public MainWindow()
         {
+            catalogProperties = new CatalogProperties();
             InitializeComponent();
-            DataContext = new DSSTable();
+            DataContext = new DssTable();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -35,7 +37,7 @@ namespace WpfCatalogExplorer
             dlg.Filter = "DSS files|*.dss";
             if (dlg.ShowDialog() == true)
             {
-                DSSTable vm = (DSSTable)DataContext;
+                DssTable vm = (DssTable)DataContext;
                 vm.FilePath = dlg.FileName;
             }
         }
@@ -44,7 +46,7 @@ namespace WpfCatalogExplorer
         {
             if (_canExecute())
             {
-                DSSTable vm = (DSSTable)DataContext;
+                DssTable vm = (DssTable)DataContext;
                 //vm.EditTimeSeries(dataGrid.SelectedCells[0].Item);
             }
         }
@@ -52,11 +54,11 @@ namespace WpfCatalogExplorer
         private void ViewTimeSeries(object sender, RoutedEventArgs e)
         {
             string selectedPath = GetPathFromRow();
-            DSSIO.Path dssPath = new DSSIO.Path(selectedPath);
-            DSSTable vm = (DSSTable)DataContext;
-            Reader reader = new Reader(vm.FilePath);
+            DssPath dssPath = new DssPath(selectedPath);
+            DssTable vm = (DssTable)DataContext;
+            DssReader reader = new DssReader(vm.FilePath);
             TimeSeries ts = reader.GetTimeSeries(dssPath);
-            ValueAndTimeTable ValueTimeDisplay = new ValueAndTimeTable(ts);
+            ValueAndTimeTable ValueTimeDisplay = new ValueAndTimeTable(ts, catalogProperties);
             ValueTimeDisplay.Show();
             reader.Dispose();
         }
@@ -101,5 +103,11 @@ namespace WpfCatalogExplorer
             }
             return selectedPath;
         }
+
+        private void SetRounding(object sender, RoutedEventArgs e)
+        {
+            catalogProperties.SetRounding(RoundingMenu.Items.IndexOf(sender));
+        }
+        
     }
 }
