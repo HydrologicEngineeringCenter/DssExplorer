@@ -24,6 +24,7 @@ namespace WpfCatalogExplorer
         {
             InitializeComponent();
             DataContext = new ValueTimeTable(ts, catalogProperties);
+            this.Title = ts.Path;
         }
     }
 }
