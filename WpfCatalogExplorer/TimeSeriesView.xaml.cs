@@ -23,8 +23,15 @@ namespace WpfCatalogExplorer
         public ValueAndTimeTable(TimeSeries ts, CatalogProperties catalogProperties)
         {
             InitializeComponent();
-            DataContext = new ValueTimeTable(ts, catalogProperties);
+            DataContext = new TimeSeriesView(ts, catalogProperties);
             this.Title = ts.Path;
+        }
+
+        public ValueAndTimeTable(PairedData pd, CatalogProperties catalogProperties)
+        {
+            InitializeComponent();
+            DataContext = new TimeSeriesView(pd, catalogProperties);
+            this.Title = pd.Path;
         }
     }
 }

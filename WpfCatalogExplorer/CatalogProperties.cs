@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,6 +63,11 @@ namespace WpfCatalogExplorer
                     break;
             }
             return num;
+        }
+
+        public string RecordType(DataRowView dataRow)
+        {
+            return dataRow.Row.ItemArray[7].ToString();
         }
 
     }

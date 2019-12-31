@@ -53,10 +53,31 @@ namespace WpfCatalogExplorer
 
         private void ViewTimeSeries(object sender, RoutedEventArgs e)
         {
+
             string selectedPath = GetPathFromRow();
             DssPath dssPath = new DssPath(selectedPath);
             DssTable vm = (DssTable)DataContext;
             DssReader reader = new DssReader(vm.FilePath);
+            if (catalogProperties.RecordType((DataRowView)dataGrid.SelectedItem) == "RegularTimeSeries")
+            {
+                DisplayRegularTimeSeries(dssPath, reader);
+            }
+            else if (catalogProperties.RecordType((DataRowView)dataGrid.SelectedItem) == "PairedData")
+            {
+                DisplayPairedDataTimeSeries(dssPath, reader);
+            }
+        }
+
+        private void DisplayPairedDataTimeSeries(DssPath dssPath, DssReader reader)
+        {
+            PairedData ts = reader.GetPairedData(dssPath);
+            ValueAndTimeTable ValueTimeDisplay = new ValueAndTimeTable(ts, catalogProperties);
+            ValueTimeDisplay.Show();
+            reader.Dispose();
+        }
+
+        private void DisplayRegularTimeSeries(DssPath dssPath, DssReader reader)
+        {
             TimeSeries ts = reader.GetTimeSeries(dssPath);
             ValueAndTimeTable ValueTimeDisplay = new ValueAndTimeTable(ts, catalogProperties);
             ValueTimeDisplay.Show();
@@ -92,14 +113,29 @@ namespace WpfCatalogExplorer
         {
             DataRowView dataRow = (DataRowView)dataGrid.SelectedItem;
             string selectedPath = "/";
-            for (int i = 1; i < 7; i++) // only get A-F parts of table
+            if (catalogProperties.RecordType(dataRow) == "RegularTimeSeries") // check if selected time sereis is "Regular Time Series
             {
-                if (i == 4) // skip date 
+                for (int i = 1; i < 7; i++) // only get A-F parts of table
                 {
-                    selectedPath += "/";
-                    continue;
+                    if (i == 4) // skip date 
+                    {
+                        selectedPath += "/";
+                        continue;
+                    }
+                    selectedPath += dataRow.Row.ItemArray[i].ToString() + "/";
                 }
-                selectedPath += dataRow.Row.ItemArray[i].ToString() + "/";
+            }
+            else if (catalogProperties.RecordType(dataRow) == "PairedData") // check if selected time series is "Paired Data"
+            {
+                for (int i = 1; i < 7; i++) // only get A-F parts of table
+                {
+                    if (i == 4 || i == 5) // skip date and time
+                    {
+                        selectedPath += "/";
+                        continue;
+                    }
+                    selectedPath += dataRow.Row.ItemArray[i].ToString() + "/";
+                }
             }
             return selectedPath;
         }

@@ -100,8 +100,8 @@
     <ApplicationIcon>DssExplorer.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hec.Dss, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hec.Dss.1.0.5\lib\net472\Hec.Dss.dll</HintPath>
+    <Reference Include="Hec.Dss, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hec.Dss.1.0.6\lib\net472\Hec.Dss.dll</HintPath>
     </Reference>
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
@@ -130,10 +130,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CatalogProperties.cs" />
-    <Compile Include="ValueTimeDisplay.xaml.cs">
-      <DependentUpon>ValueTimeDisplay.xaml</DependentUpon>
+    <Compile Include="TimeSeriesView.xaml.cs">
+      <DependentUpon>TimeSeriesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ValueTimeTable.cs" />
+    <Compile Include="TimeSeriesView.cs" />
     <Page Include="Chart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,7 +154,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ValueTimeDisplay.xaml">
+    <Page Include="TimeSeriesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -207,11 +207,11 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\Hec.Dss.1.0.5\build\Hec.Dss.targets" Condition="Exists('..\packages\Hec.Dss.1.0.5\build\Hec.Dss.targets')" />
+  <Import Project="..\packages\Hec.Dss.1.0.6\build\Hec.Dss.targets" Condition="Exists('..\packages\Hec.Dss.1.0.6\build\Hec.Dss.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Hec.Dss.1.0.5\build\Hec.Dss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Hec.Dss.1.0.5\build\Hec.Dss.targets'))" />
+    <Error Condition="!Exists('..\packages\Hec.Dss.1.0.6\build\Hec.Dss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Hec.Dss.1.0.6\build\Hec.Dss.targets'))" />
   </Target>
 </Project>
