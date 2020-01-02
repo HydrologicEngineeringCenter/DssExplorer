@@ -42,7 +42,7 @@ namespace WpfCatalogExplorer
             }
         }
 
-        private void EditTimeSeries(object sender, RoutedEventArgs e)
+        private void EditCatalogSelection(object sender, RoutedEventArgs e)
         {
             if (_canExecute())
             {
@@ -51,7 +51,7 @@ namespace WpfCatalogExplorer
             }
         }
 
-        private void ViewTimeSeries(object sender, RoutedEventArgs e)
+        private void ViewCatalogSelection(object sender, RoutedEventArgs e)
         {
 
             string selectedPath = GetPathFromRow();
@@ -66,25 +66,37 @@ namespace WpfCatalogExplorer
             {
                 DisplayPairedDataTimeSeries(dssPath, reader);
             }
+            else if (catalogProperties.RecordType((DataRowView)dataGrid.SelectedItem) == "LocationInfo")
+            {
+                DisplayLocationInfoTimeSeries(dssPath, reader);
+            }
+        }
+
+        private void DisplayLocationInfoTimeSeries(DssPath dssPath, DssReader reader)
+        {
+            LocationInformation li = reader.GetLocationInfo(dssPath);
+            LocationInfoWindow liWindow = new LocationInfoWindow(li, catalogProperties);
+            liWindow.Show();
+            reader.Dispose();
         }
 
         private void DisplayPairedDataTimeSeries(DssPath dssPath, DssReader reader)
         {
-            PairedData ts = reader.GetPairedData(dssPath);
-            ValueAndTimeTable ValueTimeDisplay = new ValueAndTimeTable(ts, catalogProperties);
-            ValueTimeDisplay.Show();
+            PairedData pd = reader.GetPairedData(dssPath);
+            TimeSeriesWindow pdWindow = new TimeSeriesWindow(pd, catalogProperties);
+            pdWindow.Show();
             reader.Dispose();
         }
 
         private void DisplayRegularTimeSeries(DssPath dssPath, DssReader reader)
         {
             TimeSeries ts = reader.GetTimeSeries(dssPath);
-            ValueAndTimeTable ValueTimeDisplay = new ValueAndTimeTable(ts, catalogProperties);
-            ValueTimeDisplay.Show();
+            TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties);
+            tsWindow.Show();
             reader.Dispose();
         }
 
-        private void InsertTimeSeries(object sender, RoutedEventArgs e)
+        private void CatalogInsert(object sender, RoutedEventArgs e)
         {
             if (_canExecute())
             {
@@ -92,7 +104,7 @@ namespace WpfCatalogExplorer
             }
         }
 
-        private void RemoveTimeSeries(object sender, RoutedEventArgs e)
+        private void CatalogRemove(object sender, RoutedEventArgs e)
         {
             if (_canExecute())
             {
@@ -117,7 +129,7 @@ namespace WpfCatalogExplorer
             {
                 for (int i = 1; i < 7; i++) // only get A-F parts of table
                 {
-                    if (i == 4) // skip date 
+                    if (i == 4) // skip D part 
                     {
                         selectedPath += "/";
                         continue;
@@ -129,7 +141,19 @@ namespace WpfCatalogExplorer
             {
                 for (int i = 1; i < 7; i++) // only get A-F parts of table
                 {
-                    if (i == 4 || i == 5) // skip date and time
+                    if (i == 4 || i == 5) // skip D and E parts
+                    {
+                        selectedPath += "/";
+                        continue;
+                    }
+                    selectedPath += dataRow.Row.ItemArray[i].ToString() + "/";
+                }
+            }
+            else if (catalogProperties.RecordType(dataRow) == "LocationInfo")
+            {
+                for (int i = 1; i < 7; i++) // only get A-F parts of table
+                {
+                    if (i == 4 || i == 5 || i == 6) // skip D, E, and F parts
                     {
                         selectedPath += "/";
                         continue;

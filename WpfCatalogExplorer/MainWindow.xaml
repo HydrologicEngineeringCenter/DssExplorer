@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfCatalogExplorer"
         mc:Ignorable="d"
         DataContext="{Binding DssTable}"
-        Title="DSS Catalog Explorer" Height="450" Width="800">
+        Title="DSS Catalog Explorer" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="419"/>
@@ -37,10 +37,10 @@
             <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=DataTable}" Margin="0,0,0,-16" IsReadOnly="True" SelectionMode="Single">
                 <DataGrid.ContextMenu>
                     <ContextMenu StaysOpen="False">
-                        <MenuItem Header="Edit TimeSeries" Click="EditTimeSeries"/>
-                        <MenuItem Header="View TimeSeries" Click="ViewTimeSeries"/>
-                        <MenuItem Header="Insert TimeSeries" Click="InsertTimeSeries"/>
-                        <MenuItem Header="Remove TimeSeries" Click="RemoveTimeSeries"/>
+                        <MenuItem Header="Edit" Click="EditCatalogSelection"/>
+                        <MenuItem Header="View" Click="ViewCatalogSelection"/>
+                        <MenuItem Header="Insert" Click="CatalogInsert"/>
+                        <MenuItem Header="Remove" Click="CatalogRemove"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
