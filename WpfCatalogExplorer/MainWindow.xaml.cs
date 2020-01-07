@@ -64,25 +64,25 @@ namespace WpfCatalogExplorer
             }
             else if (catalogProperties.RecordType((DataRowView)dataGrid.SelectedItem) == "PairedData")
             {
-                DisplayPairedDataTimeSeries(dssPath, reader);
+                DisplayPairedData(dssPath, reader);
             }
             else if (catalogProperties.RecordType((DataRowView)dataGrid.SelectedItem) == "LocationInfo")
             {
-                DisplayLocationInfoTimeSeries(dssPath, reader);
+                DisplayLocationInfo(dssPath, reader);
             }
         }
 
-        private void DisplayLocationInfoTimeSeries(DssPath dssPath, DssReader reader)
+        private void DisplayLocationInfo(DssPath dssPath, DssReader reader)
         {
-            LocationInformation li = reader.GetLocationInfo(dssPath);
+            LocationInformation li = reader.GetLocationInfo(dssPath.FullPath);
             LocationInfoWindow liWindow = new LocationInfoWindow(li, catalogProperties);
             liWindow.Show();
             reader.Dispose();
         }
 
-        private void DisplayPairedDataTimeSeries(DssPath dssPath, DssReader reader)
+        private void DisplayPairedData(DssPath dssPath, DssReader reader)
         {
-            PairedData pd = reader.GetPairedData(dssPath);
+            PairedData pd = reader.GetPairedData(dssPath.FullPath);
             TimeSeriesWindow pdWindow = new TimeSeriesWindow(pd, catalogProperties);
             pdWindow.Show();
             reader.Dispose();
@@ -90,7 +90,7 @@ namespace WpfCatalogExplorer
 
         private void DisplayRegularTimeSeries(DssPath dssPath, DssReader reader)
         {
-            TimeSeries ts = reader.GetTimeSeries(dssPath);
+            TimeSeries ts = reader.GetTimeSeries(dssPath.FullPath);
             TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties);
             tsWindow.Show();
             reader.Dispose();
@@ -141,11 +141,6 @@ namespace WpfCatalogExplorer
             {
                 for (int i = 1; i < 7; i++) // only get A-F parts of table
                 {
-                    if (i == 4 || i == 5) // skip D and E parts
-                    {
-                        selectedPath += "/";
-                        continue;
-                    }
                     selectedPath += dataRow.Row.ItemArray[i].ToString() + "/";
                 }
             }
