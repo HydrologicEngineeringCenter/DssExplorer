@@ -18,19 +18,19 @@ namespace WpfCatalogExplorer
     /// <summary>
     /// Interaction logic for ValueAndTimeTable.xaml
     /// </summary>
-    public partial class TimeSeriesWindow : Window
+    public partial class CatalogSelectionWindow : Window
     {
-        public TimeSeriesWindow(TimeSeries ts, CatalogProperties catalogProperties)
+        public CatalogSelectionWindow(TimeSeries ts, CatalogProperties catalogProperties)
         {
             InitializeComponent();
-            DataContext = new TimeSeriesView(ts, catalogProperties);
+            DataContext = new CatalogSelectionView(ts, catalogProperties);
             this.Title = ts.Path.FullPath;
         }
 
-        public TimeSeriesWindow(PairedData pd, CatalogProperties catalogProperties)
+        public CatalogSelectionWindow(PairedData pd, CatalogProperties catalogProperties)
         {
             InitializeComponent();
-            DataContext = new TimeSeriesView(pd, catalogProperties);
+            DataContext = new CatalogSelectionView(pd, catalogProperties);
             this.Title = pd.Path;
         }
     }

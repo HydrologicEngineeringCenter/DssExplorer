@@ -83,7 +83,7 @@ namespace WpfCatalogExplorer
         private void DisplayPairedData(DssPath dssPath, DssReader reader)
         {
             PairedData pd = reader.GetPairedData(dssPath.FullPath);
-            TimeSeriesWindow pdWindow = new TimeSeriesWindow(pd, catalogProperties);
+            CatalogSelectionWindow pdWindow = new CatalogSelectionWindow(pd, catalogProperties);
             pdWindow.Show();
             reader.Dispose();
         }
@@ -91,7 +91,7 @@ namespace WpfCatalogExplorer
         private void DisplayRegularTimeSeries(DssPath dssPath, DssReader reader)
         {
             TimeSeries ts = reader.GetTimeSeries(dssPath.FullPath);
-            TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties);
+            CatalogSelectionWindow tsWindow = new CatalogSelectionWindow(ts, catalogProperties);
             tsWindow.Show();
             reader.Dispose();
         }
