@@ -24,7 +24,7 @@ namespace WpfCatalogExplorer
         {
             InitializeComponent();
             DataContext = new TimeSeriesView(ts, catalogProperties);
-            this.Title = ts.Path;
+            this.Title = ts.Path.FullPath;
         }
 
         public TimeSeriesWindow(PairedData pd, CatalogProperties catalogProperties)

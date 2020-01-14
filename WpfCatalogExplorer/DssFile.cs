@@ -42,24 +42,22 @@ namespace WpfCatalogExplorer
             _Writer.DeleteRecord(path);
         }
 
-        public void InsertEmptyTimeSeries(string path)
+        public void InsertEmptyTimeSeries(DssPath path)
         {
-            if (path == "")
-                return;
             TimeSeries ts = new TimeSeries();
             ts.Path = path;
             _Writer.Write(ts);
         }
 
-        public void AppendToRegularTimeSeries(string pathname, TimeSeries ts)
+        public void AppendToRegularTimeSeries(DssPath path, TimeSeries ts)
         {
-            ts.Path = pathname;
+            ts.Path = path;
             _Writer.Write(ts);
         }
 
-        public void AppendToIrregularTimeSeries(string pathname, TimeSeries ts)
+        public void AppendToIrregularTimeSeries(DssPath path, TimeSeries ts)
         {
-            ts.Path = pathname;
+            ts.Path = path;
             _Writer.Write(ts);
         }
 
