@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:WpfCatalogExplorer"
         mc:Ignorable="d"
         DataContext="{Binding DssTable}"
-        Title="DSS Catalog Explorer" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="DSS Catalog Explorer" Height="679.5" Width="963.5" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="419"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem Width="60" >
@@ -20,7 +20,7 @@
             </MenuItem>
             <MenuItem Width="60">
                 <MenuItem.Header>
-                    <TextBlock Text="Options" TextAlignment="Center" Margin="-8,0,-51,0"/>
+                    <TextBlock Text="View" TextAlignment="Center" Margin="-8,0,-51,0"/>
                 </MenuItem.Header>
                 <MenuItem Name="RoundingMenu" Header="Decimal Rounding" StaysOpenOnClick="True">
                     <RadioButton Content="None" Checked="SetRounding" IsChecked="True" />
@@ -28,25 +28,23 @@
                     <RadioButton Content=".01" Checked="SetRounding"/>
                     <RadioButton Content=".001" Checked="SetRounding"/>
                 </MenuItem>
+                <MenuItem Name="CompressionMenu" Header="Data Compression" StaysOpenOnClick="True">
+                    <RadioButton Content="None" Checked="SetCompression" IsChecked="True"/>
+                    <RadioButton Content="No Data" Checked="SetCompression"/>
+                    <RadioButton Content="Zero and No Data" Checked="SetCompression"/>
+                    <RadioButton Content="Any Value" Checked="SetCompression"/>
+                </MenuItem>
             </MenuItem>
         </Menu>
-        <Grid Margin="0,19,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="383"/>
-            </Grid.RowDefinitions>
-            <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=DataTable}" Margin="0,0,0,-16" IsReadOnly="True" SelectionMode="Single">
-                <DataGrid.ContextMenu>
-                    <ContextMenu StaysOpen="False">
-                        <MenuItem Header="Edit" Click="EditCatalogSelection"/>
-                        <MenuItem Header="View" Click="ViewCatalogSelection"/>
-                        <MenuItem Header="Insert" Click="CatalogInsert"/>
-                        <MenuItem Header="Remove" Click="CatalogRemove"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
-            <!--<local:GridDisplay x:Name="grid1"  Margin="0,19,0,0"  />-->
-        </Grid>
-
-
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=DataTable}" IsReadOnly="True" SelectionMode="Single" Margin="0,18,0,-1">
+            <DataGrid.ContextMenu>
+                <ContextMenu StaysOpen="False">
+                    <MenuItem Header="Edit" Click="EditCatalogSelection"/>
+                    <MenuItem Header="View" Click="ViewCatalogSelection"/>
+                    <MenuItem Header="Insert" Click="CatalogInsert"/>
+                    <MenuItem Header="Remove" Click="CatalogRemove"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
     </Grid>
 </Window>

@@ -61,9 +61,9 @@ namespace WpfCatalogExplorer
             _Writer.Write(ts);
         }
 
-        public void RemoveFromIrregularTimeSeries(string pathname, int valueIndex)
+        public void RemoveFromIrregularTimeSeries(DssPath path, int valueIndex)
         {
-            var cur_st = _Writer.GetTimeSeries(pathname);
+            var cur_st = _Writer.GetTimeSeries(path);
 
             // remove value from value array in TimeSeries
             var valueList = cur_st.Values.ToList();

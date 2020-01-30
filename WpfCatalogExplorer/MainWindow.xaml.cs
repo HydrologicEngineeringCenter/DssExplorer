@@ -90,7 +90,7 @@ namespace WpfCatalogExplorer
 
         private void DisplayRegularTimeSeries(DssPath dssPath, DssReader reader)
         {
-            TimeSeries ts = reader.GetTimeSeries(dssPath.FullPath);
+            TimeSeries ts = reader.GetTimeSeries(dssPath, compression: catalogProperties.compression);
             CatalogSelectionWindow tsWindow = new CatalogSelectionWindow(ts, catalogProperties);
             tsWindow.Show();
             reader.Dispose();
@@ -162,6 +162,11 @@ namespace WpfCatalogExplorer
         private void SetRounding(object sender, RoutedEventArgs e)
         {
             catalogProperties.SetRounding(RoundingMenu.Items.IndexOf(sender));
+        }
+
+        private void SetCompression(object sender, RoutedEventArgs e)
+        {
+            catalogProperties.SetCompression(CompressionMenu.Items.IndexOf(sender));
         }
         
     }

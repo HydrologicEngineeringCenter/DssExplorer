@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:WpfCatalogExplorer"
         mc:Ignorable="d"
         Title="ValueAndTimeTable" Height="450" Width="800"
-        DataContext="{Binding TimeSeriesView}" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        DataContext="{Binding CatalogSelectionView}" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=Table}"/>
+        <DataGrid ItemsSource="{Binding Path=Table}" IsReadOnly="True"/>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hec.Dss;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace WpfCatalogExplorer
     public class CatalogProperties
     {
         public Rounding round = Rounding.None;
+        public TimeWindow.ConsecutiveValueCompression compression = TimeWindow.ConsecutiveValueCompression.None;
         public enum Rounding
         {
             None,
@@ -38,6 +40,27 @@ namespace WpfCatalogExplorer
                     break;
                 case 3:
                     round = Rounding.Thousandth;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void SetCompression(int value)
+        {
+            switch (value)
+            {
+                case 0:
+                    compression = TimeWindow.ConsecutiveValueCompression.None;
+                    break;
+                case 1:
+                    compression = TimeWindow.ConsecutiveValueCompression.NoData;
+                    break;
+                case 2:
+                    compression = TimeWindow.ConsecutiveValueCompression.ZeroAndNoData;
+                    break;
+                case 3:
+                    compression = TimeWindow.ConsecutiveValueCompression.AnyValue;
                     break;
                 default:
                     break;
