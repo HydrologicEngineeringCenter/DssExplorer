@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Hec.Dss.TimeWindow;
 
 namespace WpfCatalogExplorer
 {
@@ -27,13 +28,37 @@ namespace WpfCatalogExplorer
             GC.SuppressFinalize(this);
         }
 
-        public DataTable Catalog
+        public LocationInformation GetLocationInformation(DssPath dssPath) 
+        {
+            return _Writer.GetLocationInfo(dssPath.FullPath);
+        }
+        
+        public TimeSeries GetTimeSeries(DssPath dssPath, ConsecutiveValueCompression compression = ConsecutiveValueCompression.None) 
+        {
+            return _Writer.GetTimeSeries(dssPath, compression: compression);
+        }
+        
+        public PairedData GetPairedData(DssPath dssPath) 
+        {
+            return _Writer.GetPairedData(dssPath.FullPath);
+        }
+
+
+        public DataTable DataTable
         {
             get
             {
                 DssPathCollection paths = _Writer.GetCatalog(true);
                 var tbl = paths.ToDataTable();
                 return tbl;
+            }
+        }
+
+        public DssPathCollection PathCollection
+        {
+            get
+            {
+                return _Writer.GetCatalog(true);
             }
         }
 

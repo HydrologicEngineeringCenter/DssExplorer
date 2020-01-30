@@ -88,10 +88,5 @@ namespace WpfCatalogExplorer
             return num;
         }
 
-        public string RecordType(DataRowView dataRow)
-        {
-            return dataRow.Row.ItemArray[7].ToString();
-        }
-
     }
 }

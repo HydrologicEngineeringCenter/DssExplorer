@@ -36,7 +36,7 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=DataTable}" IsReadOnly="True" SelectionMode="Single" Margin="0,18,0,-1">
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=PathCollection}" IsReadOnly="True" SelectionMode="Single" Margin="0,18,0,-1" AutoGenerateColumns="False">
             <DataGrid.ContextMenu>
                 <ContextMenu StaysOpen="False">
                     <MenuItem Header="Edit" Click="EditCatalogSelection"/>
@@ -45,6 +45,21 @@
                     <MenuItem Header="Remove" Click="CatalogRemove"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="A Part" Binding="{Binding Path=Apart}"/>
+                <DataGridTextColumn Header="B Part" Binding="{Binding Path=Bpart}"/>
+                <DataGridTextColumn Header="C Part" Binding="{Binding Path=Cpart}"/>
+                <DataGridTextColumn Header="D Part" Binding="{Binding Path=Dpart}"/>
+                <DataGridTextColumn Header="E Part" Binding="{Binding Path=Epart}"/>
+                <DataGridTextColumn Header="F Part" Binding="{Binding Path=Fpart}"/>
+                <DataGridTextColumn Header="Data Type" Binding="{Binding Path=DataType}"/>
+                <DataGridTextColumn Header="Units" Binding="{Binding Path=Units}"/>
+                <DataGridTextColumn Header="Record Type" Binding="{Binding Path=RecordType}"/>
+                <DataGridTextColumn Header="X Ordinate" Binding="{Binding Path=XOrdinate}"/>
+                <DataGridTextColumn Header="Y Ordinate" Binding="{Binding Path=YOrdinate}"/>
+                <DataGridTextColumn Header="Z Ordinate" Binding="{Binding Path=ZOrdinate}"/>
+                <DataGridTextColumn Header="Full Path" Binding="{Binding Path=FullPath}"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>

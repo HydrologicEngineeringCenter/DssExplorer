@@ -20,6 +20,17 @@ namespace WpfCatalogExplorer
         {
           get { return _table; }
         }
+
+        public DssPathCollection PathCollection
+        {
+            get
+            { 
+                if (_dssFile == null) { return null; }
+                return _dssFile.PathCollection; 
+            }
+
+        }
+
         public DssFile File
         {
             get { return _dssFile; }
@@ -28,8 +39,9 @@ namespace WpfCatalogExplorer
         private void ReadData()
         {
           _dssFile = new DssFile(FilePath);
-          _table = _dssFile.Catalog;
+          _table = _dssFile.DataTable;
           NotifyPropertyChanged(nameof(DataTable));
+          NotifyPropertyChanged(nameof(PathCollection));
         }
 
         protected virtual void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
