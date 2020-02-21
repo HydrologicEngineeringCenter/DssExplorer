@@ -13,6 +13,7 @@ namespace WpfCatalogExplorer
     {
         private DataTable _table = new DataTable();
         private object Record;
+        private CatalogProperties _catalogProperties;
         public DataTable Table
         {
             get { return _table; }
@@ -20,6 +21,7 @@ namespace WpfCatalogExplorer
         public RecordSelectionTable(TimeSeries ts, CatalogProperties catalogProperties)
         {
             Record = ts;
+            _catalogProperties = catalogProperties;
             _table = ts.ToDataTable(true);
             RoundValues(ts, catalogProperties);
             NotifyPropertyChanged(nameof(Table));
@@ -28,6 +30,7 @@ namespace WpfCatalogExplorer
         public RecordSelectionTable(PairedData pd, CatalogProperties catalogProperties)
         {
             Record = pd;
+            _catalogProperties = catalogProperties;
             _table = pd.ToDataTable(true);
             RoundValues(pd, catalogProperties);
             NotifyPropertyChanged(nameof(Table));
@@ -78,6 +81,7 @@ namespace WpfCatalogExplorer
             if (Record is TimeSeries)
             {
                 _table = ((TimeSeries)Record).ToDataTable(true, true);
+                RoundValues(((TimeSeries)Record), _catalogProperties);
                 NotifyPropertyChanged(nameof(Table));
             }
         }
@@ -87,6 +91,7 @@ namespace WpfCatalogExplorer
             if (Record is TimeSeries)
             {
                 _table = ((TimeSeries)Record).ToDataTable(true);
+                RoundValues(((TimeSeries)Record), _catalogProperties);
                 NotifyPropertyChanged(nameof(Table));
             }
         }
