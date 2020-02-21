@@ -42,6 +42,11 @@ namespace WpfCatalogExplorer
             NotifyPropertyChanged(nameof(CoordinateSystem));
             
         }
+
+        public void DisableEditFeatures()
+        {
+
+        }
         
         protected virtual void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
         {

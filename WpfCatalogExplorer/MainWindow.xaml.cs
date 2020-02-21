@@ -44,29 +44,50 @@ namespace WpfCatalogExplorer
 
         private void EditCatalogSelection(object sender, RoutedEventArgs e)
         {
-            if (_canExecute())
-            {
-                DssTable vm = (DssTable)DataContext;
-                //vm.EditTimeSeries(dataGrid.SelectedCells[0].Item);
-            }
-        }
-
-        private void ViewCatalogSelection(object sender, RoutedEventArgs e)
-        {
+            if (!_canExecute())
+                return;
 
             DssPath dssPath = (DssPath)dataGrid.SelectedItem;
             DssTable vm = (DssTable)DataContext;
-            //DssReader reader = new DssReader(FIle.FilePath);
             if (dssPath.RecordType == RecordType.RegularTimeSeries || dssPath.RecordType == RecordType.IrregularTimeSeries)
             {
                 TimeSeries ts = vm.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
-                CatalogSelectionWindow tsWindow = new CatalogSelectionWindow(ts, catalogProperties);
+                RecordSelectionWindow tsWindow = new RecordSelectionWindow(ts, catalogProperties);
                 tsWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.PairedData)
             {
                 PairedData pd = vm.File.GetPairedData(dssPath);
-                CatalogSelectionWindow pdWindow = new CatalogSelectionWindow(pd, catalogProperties);
+                RecordSelectionWindow pdWindow = new RecordSelectionWindow(pd, catalogProperties);
+                pdWindow.Show();
+            }
+            else if (dssPath.RecordType == RecordType.LocationInfo)
+            {
+                LocationInformation li = vm.File.GetLocationInformation(dssPath);
+                LocationInfoWindow liWindow = new LocationInfoWindow(li, catalogProperties);
+                liWindow.Show();
+            }
+        }
+
+        private void ViewCatalogSelection(object sender, RoutedEventArgs e)
+        {
+            if (!_canExecute())
+                return;
+
+            DssPath dssPath = (DssPath)dataGrid.SelectedItem;
+            DssTable vm = (DssTable)DataContext;
+            if (dssPath.RecordType == RecordType.RegularTimeSeries || dssPath.RecordType == RecordType.IrregularTimeSeries)
+            {
+                TimeSeries ts = vm.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
+                RecordSelectionWindow tsWindow = new RecordSelectionWindow(ts, catalogProperties);
+                tsWindow.DisableEditFeatures();
+                tsWindow.Show();
+            }
+            else if (dssPath.RecordType == RecordType.PairedData)
+            {
+                PairedData pd = vm.File.GetPairedData(dssPath);
+                RecordSelectionWindow pdWindow = new RecordSelectionWindow(pd, catalogProperties);
+                pdWindow.DisableEditFeatures();
                 pdWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.LocationInfo)
@@ -79,18 +100,14 @@ namespace WpfCatalogExplorer
 
         private void CatalogInsert(object sender, RoutedEventArgs e)
         {
-            if (_canExecute())
-            {
-                //vm.InsertTimeSeries(dataGrid.SelectedIndex);
-            }
+            if (!_canExecute())
+                return;
         }
 
         private void CatalogRemove(object sender, RoutedEventArgs e)
         {
-            if (_canExecute())
-            {
-                //vm.RemoveTimeSeries(dataGrid.SelectedIndex);
-            }
+            if (!_canExecute())
+                return;
         }
 
         private bool _canExecute()
@@ -111,6 +128,13 @@ namespace WpfCatalogExplorer
         {
             catalogProperties.SetCompression(CompressionMenu.Items.IndexOf(sender));
         }
-        
+
+        private void CopyPath(object sender, RoutedEventArgs e)
+        {
+            if (!_canExecute())
+                return;
+
+            Clipboard.SetText(((DssPath)dataGrid.SelectedItem).FullPath);
+        }
     }
 }

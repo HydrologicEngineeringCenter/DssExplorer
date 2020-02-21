@@ -20,7 +20,7 @@
             </MenuItem>
             <MenuItem Width="60">
                 <MenuItem.Header>
-                    <TextBlock Text="View" TextAlignment="Center" Margin="-8,0,-51,0"/>
+                    <TextBlock Text="Options" TextAlignment="Center" Margin="-8,0,-51,0"/>
                 </MenuItem.Header>
                 <MenuItem Name="RoundingMenu" Header="Decimal Rounding" StaysOpenOnClick="True">
                     <RadioButton Content="None" Checked="SetRounding" IsChecked="True" />
@@ -39,6 +39,7 @@
         <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=PathCollection}" IsReadOnly="True" SelectionMode="Single" Margin="0,18,0,-1" AutoGenerateColumns="False">
             <DataGrid.ContextMenu>
                 <ContextMenu StaysOpen="False">
+                    <MenuItem Header="Copy Path" Click="CopyPath"/>
                     <MenuItem Header="Edit" Click="EditCatalogSelection"/>
                     <MenuItem Header="View" Click="ViewCatalogSelection"/>
                     <MenuItem Header="Insert" Click="CatalogInsert"/>
