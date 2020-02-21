@@ -31,7 +31,7 @@ namespace WpfCatalogExplorer
             DataContext = new DssTable();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void OpenDssFile(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "DSS files|*.dss";
@@ -39,6 +39,7 @@ namespace WpfCatalogExplorer
             {
                 DssTable vm = (DssTable)DataContext;
                 vm.FilePath = dlg.FileName;
+                this.Title = "DSS Explorer: " + dlg.FileName;
             }
         }
 

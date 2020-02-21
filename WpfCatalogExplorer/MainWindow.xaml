@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfCatalogExplorer"
         mc:Ignorable="d"
         DataContext="{Binding DssTable}"
-        Title="DSS Catalog Explorer" Height="679.5" Width="963.5" WindowStartupLocation="CenterScreen">
+        Title="DSS Explorer" Height="679.5" Width="963.5" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,1">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -16,7 +16,7 @@
                 <MenuItem.Header>
                     <TextBlock Text="File" TextAlignment="Center" Margin="-8,0,-51,0"/>
                 </MenuItem.Header>
-                <MenuItem Header="Open..." Click="MenuItem_Click"/>
+                <MenuItem Header="Open..." Click="OpenDssFile"/>
             </MenuItem>
             <MenuItem Width="60">
                 <MenuItem.Header>
