@@ -36,12 +36,12 @@ namespace WpfCatalogExplorer
 
         private void ShowQualityChecked(object sender, RoutedEventArgs e)
         {
-           ((RecordSelectionTable)DataContext).ShowQuality();
+            ShowColumn("Quality");
         }
         
         private void ShowQualityUnchecked(object sender, RoutedEventArgs e)
         {
-            ((RecordSelectionTable)DataContext).HideQuality();
+            HideColumn("Quality");
         }
 
         public void DisableEditFeatures()
@@ -58,6 +58,26 @@ namespace WpfCatalogExplorer
         private void SaveAs(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void HideColumn(string column)
+        {
+            var c = dt.Columns.First(x => x.Header.ToString() == column);
+            int idx = dt.Columns.IndexOf(c);
+            dt.Columns[idx].Visibility = Visibility.Collapsed;
+        }
+
+        private void ShowColumn(string column)
+        {
+            var c = dt.Columns.First(x => x.Header.ToString() == column);
+            int idx = dt.Columns.IndexOf(c);
+            dt.Columns[idx].Visibility = Visibility.Visible;
+        }
+
+        private void dt_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (((RecordSelectionTable)DataContext).Record is TimeSeries)
+                HideColumn("Quality");
         }
     }
 }

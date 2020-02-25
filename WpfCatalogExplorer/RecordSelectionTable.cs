@@ -12,7 +12,7 @@ namespace WpfCatalogExplorer
     public class RecordSelectionTable : System.ComponentModel.INotifyPropertyChanged
     {
         private DataTable _table = new DataTable();
-        private object Record;
+        public object Record;
         private CatalogProperties _catalogProperties;
         public DataTable Table
         {
@@ -22,7 +22,7 @@ namespace WpfCatalogExplorer
         {
             Record = ts;
             _catalogProperties = catalogProperties;
-            _table = ts.ToDataTable(true);
+            _table = ts.ToDataTable();
             RoundValues(ts, catalogProperties);
             NotifyPropertyChanged(nameof(Table));
         }
@@ -73,26 +73,6 @@ namespace WpfCatalogExplorer
                         row["value"] = catalogProperties.Round((double)row["value"]);
                     }
                 }
-            }
-        }
-
-        public void ShowQuality()
-        {
-            if (Record is TimeSeries)
-            {
-                _table = ((TimeSeries)Record).ToDataTable(true, true);
-                RoundValues(((TimeSeries)Record), _catalogProperties);
-                NotifyPropertyChanged(nameof(Table));
-            }
-        }
-
-        public void HideQuality()
-        {
-            if (Record is TimeSeries)
-            {
-                _table = ((TimeSeries)Record).ToDataTable(true);
-                RoundValues(((TimeSeries)Record), _catalogProperties);
-                NotifyPropertyChanged(nameof(Table));
             }
         }
 
