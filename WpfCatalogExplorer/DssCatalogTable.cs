@@ -14,7 +14,7 @@ namespace WpfCatalogExplorer
         public string FilePath
         {
           get { return _filePath; }
-          set { _filePath = value; NotifyPropertyChanged(); ReadData(); }
+          set { _filePath = value; ReadData(); }
         }
         public System.Data.DataTable DataTable
         {
