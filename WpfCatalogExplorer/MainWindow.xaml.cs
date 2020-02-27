@@ -28,7 +28,7 @@ namespace WpfCatalogExplorer
         {
             catalogProperties = new CatalogProperties();
             InitializeComponent();
-            DataContext = new DssTable();
+            DataContext = new DssCatalogTable();
         }
 
         private void OpenDssFile(object sender, RoutedEventArgs e)
@@ -37,8 +37,8 @@ namespace WpfCatalogExplorer
             dlg.Filter = "DSS files|*.dss";
             if (dlg.ShowDialog() == true)
             {
-                DssTable vm = (DssTable)DataContext;
-                vm.FilePath = dlg.FileName;
+                DssCatalogTable catalog = (DssCatalogTable)DataContext;
+                catalog.FilePath = dlg.FileName;
                 this.Title = "DSS Explorer: " + dlg.FileName;
             }
         }
@@ -49,22 +49,22 @@ namespace WpfCatalogExplorer
                 return;
 
             DssPath dssPath = (DssPath)dataGrid.SelectedItem;
-            DssTable vm = (DssTable)DataContext;
+            DssCatalogTable catalog = (DssCatalogTable)DataContext;
             if (dssPath.RecordType == RecordType.RegularTimeSeries || dssPath.RecordType == RecordType.IrregularTimeSeries)
             {
-                TimeSeries ts = vm.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
-                RecordSelectionWindow tsWindow = new RecordSelectionWindow(ts, catalogProperties);
+                TimeSeries ts = catalog.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
+                TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties);
                 tsWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.PairedData)
             {
-                PairedData pd = vm.File.GetPairedData(dssPath);
-                RecordSelectionWindow pdWindow = new RecordSelectionWindow(pd, catalogProperties);
+                PairedData pd = catalog.File.GetPairedData(dssPath);
+                PairedDataWindow pdWindow = new PairedDataWindow(pd, catalogProperties);
                 pdWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.LocationInfo)
             {
-                LocationInformation li = vm.File.GetLocationInformation(dssPath);
+                LocationInformation li = catalog.File.GetLocationInformation(dssPath);
                 LocationInfoWindow liWindow = new LocationInfoWindow(li, catalogProperties);
                 liWindow.Show();
             }
@@ -76,24 +76,24 @@ namespace WpfCatalogExplorer
                 return;
 
             DssPath dssPath = (DssPath)dataGrid.SelectedItem;
-            DssTable vm = (DssTable)DataContext;
+            DssCatalogTable catalog = (DssCatalogTable)DataContext;
             if (dssPath.RecordType == RecordType.RegularTimeSeries || dssPath.RecordType == RecordType.IrregularTimeSeries)
             {
-                TimeSeries ts = vm.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
-                RecordSelectionWindow tsWindow = new RecordSelectionWindow(ts, catalogProperties);
+                TimeSeries ts = catalog.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
+                TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties);
                 tsWindow.DisableEditFeatures();
                 tsWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.PairedData)
             {
-                PairedData pd = vm.File.GetPairedData(dssPath);
-                RecordSelectionWindow pdWindow = new RecordSelectionWindow(pd, catalogProperties);
+                PairedData pd = catalog.File.GetPairedData(dssPath);
+                PairedDataWindow pdWindow = new PairedDataWindow(pd, catalogProperties);
                 pdWindow.DisableEditFeatures();
                 pdWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.LocationInfo)
             {
-                LocationInformation li = vm.File.GetLocationInformation(dssPath);
+                LocationInformation li = catalog.File.GetLocationInformation(dssPath);
                 LocationInfoWindow liWindow = new LocationInfoWindow(li, catalogProperties);
                 liWindow.Show();
             }

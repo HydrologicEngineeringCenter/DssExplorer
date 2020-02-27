@@ -1,21 +1,18 @@
-﻿<Window x:Class="WpfCatalogExplorer.RecordSelectionWindow"
+﻿<Window x:Class="WpfCatalogExplorer.PairedDataWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCatalogExplorer"
         mc:Ignorable="d"
-        Title="ValueAndTimeTable" Height="450" Width="800"
-        DataContext="{Binding RecordSelectionTable}" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Height="450" Width="800"
+        DataContext="{Binding DssDataTable}" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="dt" ItemsSource="{Binding Path=Table}" Margin="0,23,0,0" Loaded="dt_Loaded"/>
+        <DataGrid x:Name="dg" ItemsSource="{Binding Path=Table}" Margin="0,23,0,0"/>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem x:Name="FileMenu" Header="File" Height="23" Width="40">
                 <MenuItem Header="Save" Click="Save"/>
                 <MenuItem Header="Save As..." Click="SaveAs"/>
-            </MenuItem>
-            <MenuItem x:Name="ViewMenu" Header="View" Height="23" Width="40" >
-                <MenuItem Header="Show Quality" IsCheckable="True" Checked="ShowQualityChecked" Unchecked="ShowQualityUnchecked"/>
             </MenuItem>
         </Menu>
     </Grid>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WpfCatalogExplorer
 {
-    public class RecordSelectionTable : System.ComponentModel.INotifyPropertyChanged
+    public class DssDataTable : System.ComponentModel.INotifyPropertyChanged
     {
         private DataTable _table = new DataTable();
         public object Record;
@@ -18,7 +18,7 @@ namespace WpfCatalogExplorer
         {
             get { return _table; }
         }
-        public RecordSelectionTable(TimeSeries ts, CatalogProperties catalogProperties)
+        public DssDataTable(TimeSeries ts, CatalogProperties catalogProperties)
         {
             Record = ts;
             _catalogProperties = catalogProperties;
@@ -27,7 +27,7 @@ namespace WpfCatalogExplorer
             NotifyPropertyChanged(nameof(Table));
         }
 
-        public RecordSelectionTable(PairedData pd, CatalogProperties catalogProperties)
+        public DssDataTable(PairedData pd, CatalogProperties catalogProperties)
         {
             Record = pd;
             _catalogProperties = catalogProperties;

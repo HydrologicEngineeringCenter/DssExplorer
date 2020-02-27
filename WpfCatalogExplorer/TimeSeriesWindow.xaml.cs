@@ -16,22 +16,15 @@ using System.Windows.Shapes;
 namespace WpfCatalogExplorer
 {
     /// <summary>
-    /// Interaction logic for ValueAndTimeTable.xaml
+    /// Interaction logic for TimeSeriesWindow.xaml
     /// </summary>
-    public partial class RecordSelectionWindow : Window
+    public partial class TimeSeriesWindow : Window
     {
-        public RecordSelectionWindow(TimeSeries ts, CatalogProperties catalogProperties)
+        public TimeSeriesWindow(TimeSeries ts, CatalogProperties catalogProperties)
         {
             InitializeComponent();
-            DataContext = new RecordSelectionTable(ts, catalogProperties);
+            DataContext = new DssDataTable(ts, catalogProperties);
             this.Title = ts.Path.FullPath;
-        }
-
-        public RecordSelectionWindow(PairedData pd, CatalogProperties catalogProperties)
-        {
-            InitializeComponent();
-            DataContext = new RecordSelectionTable(pd, catalogProperties);
-            this.Title = pd.Path;
         }
 
         private void ShowQualityChecked(object sender, RoutedEventArgs e)
@@ -47,7 +40,7 @@ namespace WpfCatalogExplorer
         public void DisableEditFeatures()
         {
             FileMenu.Visibility = Visibility.Collapsed;
-            dt.IsReadOnly = true;
+            dg.IsReadOnly = true;
         }
 
         private void Save(object sender, RoutedEventArgs e)
@@ -62,22 +55,21 @@ namespace WpfCatalogExplorer
 
         private void HideColumn(string column)
         {
-            var c = dt.Columns.First(x => x.Header.ToString() == column);
-            int idx = dt.Columns.IndexOf(c);
-            dt.Columns[idx].Visibility = Visibility.Collapsed;
+            var c = dg.Columns.First(x => x.Header.ToString() == column);
+            int idx = dg.Columns.IndexOf(c);
+            dg.Columns[idx].Visibility = Visibility.Collapsed;
         }
 
         private void ShowColumn(string column)
         {
-            var c = dt.Columns.First(x => x.Header.ToString() == column);
-            int idx = dt.Columns.IndexOf(c);
-            dt.Columns[idx].Visibility = Visibility.Visible;
+            var c = dg.Columns.First(x => x.Header.ToString() == column);
+            int idx = dg.Columns.IndexOf(c);
+            dg.Columns[idx].Visibility = Visibility.Visible;
         }
 
-        private void dt_Loaded(object sender, RoutedEventArgs e)
+        private void dg_Loaded(object sender, RoutedEventArgs e)
         {
-            if (((RecordSelectionTable)DataContext).Record is TimeSeries)
-                HideColumn("Quality");
+            HideColumn("Quality");
         }
     }
 }
