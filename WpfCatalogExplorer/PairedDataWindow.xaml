@@ -8,7 +8,7 @@
         Height="450" Width="800"
         DataContext="{Binding DssDataTable}" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="dg" ItemsSource="{Binding Path=Table}" Margin="0,23,0,0"/>
+        <DataGrid x:Name="dg" ItemsSource="{Binding Path=Table}" Margin="0,23,0,0" LoadingRow="dg_LoadingRow"/>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem x:Name="FileMenu" Header="File" Height="23" Width="40">
                 <MenuItem Header="Save" Click="Save"/>

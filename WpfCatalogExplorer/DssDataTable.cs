@@ -40,7 +40,7 @@ namespace WpfCatalogExplorer
         {
             Record = pd;
             _catalogProperties = catalogProperties;
-            _table = pd.ToDataTable(true);
+            _table = pd.ToDataTable();
             RoundValues(pd, catalogProperties);
             NotifyPropertyChanged(nameof(Table));
         }
