@@ -20,11 +20,14 @@ namespace WpfCatalogExplorer
     /// </summary>
     public partial class PairedDataWindow : Window
     {
-        public PairedDataWindow(PairedData pd, CatalogProperties catalogProperties)
+        private PairedData pd { get { return ((PairedData)((DssDataTable)DataContext).Record); } }
+        public PairedDataWindow(PairedData pd, CatalogProperties catalogProperties, DssFile dssFile)
         {
             InitializeComponent();
             DataContext = new DssDataTable(pd, catalogProperties);
             this.Title = pd.Path;
+
+            PdSaveEvent += dssFile.PdSave;
         }
 
         public void DisableEditFeatures()
@@ -35,7 +38,7 @@ namespace WpfCatalogExplorer
 
         private void Save(object sender, RoutedEventArgs e)
         {
-
+            PdSaveEvent(pd);
         }
 
         private void SaveAs(object sender, RoutedEventArgs e)
@@ -47,5 +50,8 @@ namespace WpfCatalogExplorer
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
+
+        public delegate void PdSaveEventHandler(PairedData pd);
+        public event PdSaveEventHandler PdSaveEvent;
     }
 }

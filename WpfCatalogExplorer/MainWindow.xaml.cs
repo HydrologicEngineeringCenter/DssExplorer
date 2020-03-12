@@ -24,6 +24,7 @@ namespace WpfCatalogExplorer
     public partial class MainWindow : Window
     {
         private CatalogProperties catalogProperties;
+        private DssFile dssFile { get { return ((DssCatalogTable)DataContext).File; } }
         public MainWindow()
         {
             catalogProperties = new CatalogProperties();
@@ -40,6 +41,9 @@ namespace WpfCatalogExplorer
                 DssCatalogTable catalog = (DssCatalogTable)DataContext;
                 catalog.FilePath = dlg.FileName;
                 this.Title = "DSS Explorer: " + dlg.FileName;
+
+                catalogProperties.File = ((DssCatalogTable)DataContext).File;
+
             }
         }
 
@@ -53,13 +57,13 @@ namespace WpfCatalogExplorer
             if (dssPath.RecordType == RecordType.RegularTimeSeries || dssPath.RecordType == RecordType.IrregularTimeSeries)
             {
                 TimeSeries ts = catalog.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
-                TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties);
+                TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties, dssFile);
                 tsWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.PairedData)
             {
                 PairedData pd = catalog.File.GetPairedData(dssPath);
-                PairedDataWindow pdWindow = new PairedDataWindow(pd, catalogProperties);
+                PairedDataWindow pdWindow = new PairedDataWindow(pd, catalogProperties, dssFile);
                 pdWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.LocationInfo)
@@ -80,14 +84,14 @@ namespace WpfCatalogExplorer
             if (dssPath.RecordType == RecordType.RegularTimeSeries || dssPath.RecordType == RecordType.IrregularTimeSeries)
             {
                 TimeSeries ts = catalog.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
-                TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties);
+                TimeSeriesWindow tsWindow = new TimeSeriesWindow(ts, catalogProperties, dssFile);
                 tsWindow.DisableEditFeatures();
                 tsWindow.Show();
             }
             else if (dssPath.RecordType == RecordType.PairedData)
             {
                 PairedData pd = catalog.File.GetPairedData(dssPath);
-                PairedDataWindow pdWindow = new PairedDataWindow(pd, catalogProperties);
+                PairedDataWindow pdWindow = new PairedDataWindow(pd, catalogProperties, dssFile);
                 pdWindow.DisableEditFeatures();
                 pdWindow.Show();
             }

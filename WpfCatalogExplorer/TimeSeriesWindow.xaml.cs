@@ -21,12 +21,13 @@ namespace WpfCatalogExplorer
     /// </summary>
     public partial class TimeSeriesWindow : Window, System.ComponentModel.INotifyPropertyChanged
     {
-
-        public TimeSeriesWindow(TimeSeries ts, CatalogProperties catalogProperties)
+        private TimeSeries ts { get { return ((TimeSeries)((DssDataTable)DataContext).Record); } }
+        public TimeSeriesWindow(TimeSeries ts, CatalogProperties catalogProperties, DssFile dssFile)
         {
             InitializeComponent();
             DataContext = new DssDataTable(ts, catalogProperties);
             this.Title = ts.Path.FullPath;
+            TsSaveEvent += dssFile.TsSave;
         }
 
         private void ShowQualityChecked(object sender, RoutedEventArgs e)
@@ -47,7 +48,37 @@ namespace WpfCatalogExplorer
 
         private void Save(object sender, RoutedEventArgs e)
         {
+            var points = new List<TimeSeriesPoint>();
+            for (int i = 0; i < dg.Items.Count; i++)
+            {
+                points.Add((TimeSeriesPoint)dg.Items[i]);
+            }
 
+            var newTs = new TimeSeries();
+
+            newTs.Path = ts.Path;
+            newTs.Units = ts.Units;
+            newTs.DataType = ts.DataType;
+            newTs.StartDateTime = points[0].DateTime;
+            newTs.LocationInformation = ts.LocationInformation;
+
+            var vals = new List<double>();
+            var times = new List<DateTime>();
+            var qualities = new List<int>();
+            for (int i = 0; i < points.Count; i++)
+            {
+                vals.Add(points[i].Value);
+                times.Add(points[i].DateTime);
+                if (ts.HasQuality)
+                    qualities.Add(points[i].IntQuality);
+            }
+
+            newTs.Values = vals.ToArray();
+            newTs.Times = times.ToArray();
+            if (ts.HasQuality)
+                newTs.Qualities = qualities.ToArray();
+
+            TsSaveEvent(newTs);
         }
 
         private void SaveAs(object sender, RoutedEventArgs e)
@@ -84,5 +115,9 @@ namespace WpfCatalogExplorer
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
+
+        public delegate void TsSaveEventHandler(TimeSeries ts);
+        public event TsSaveEventHandler TsSaveEvent;
+
     }
 }

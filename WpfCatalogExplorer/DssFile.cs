@@ -15,32 +15,32 @@ namespace WpfCatalogExplorer
     public class DssFile
     {
         private string _pathToDssFile;
-        private DssWriter _Writer;
+        private DssWriter _writer;
         public DssFile(string pathToDssFile)
         {
             _pathToDssFile = pathToDssFile;
-            _Writer = new DssWriter(pathToDssFile);
+            _writer = new DssWriter(pathToDssFile);
         }
 
         public void Dispose()
         {
-            _Writer.Dispose();
+            _writer.Dispose();
             GC.SuppressFinalize(this);
         }
 
         public LocationInformation GetLocationInformation(DssPath dssPath) 
         {
-            return _Writer.GetLocationInfo(dssPath.FullPath);
+            return _writer.GetLocationInfo(dssPath.FullPath);
         }
         
         public TimeSeries GetTimeSeries(DssPath dssPath, ConsecutiveValueCompression compression = ConsecutiveValueCompression.None) 
         {
-            return _Writer.GetTimeSeries(dssPath, compression: compression);
+            return _writer.GetTimeSeries(dssPath, compression: compression);
         }
         
         public PairedData GetPairedData(DssPath dssPath) 
         {
-            return _Writer.GetPairedData(dssPath.FullPath);
+            return _writer.GetPairedData(dssPath.FullPath);
         }
 
 
@@ -48,7 +48,7 @@ namespace WpfCatalogExplorer
         {
             get
             {
-                DssPathCollection paths = _Writer.GetCatalog(true);
+                DssPathCollection paths = _writer.GetCatalog(true);
                 var tbl = paths.ToDataTable();
                 return tbl;
             }
@@ -58,48 +58,18 @@ namespace WpfCatalogExplorer
         {
             get
             {
-                return _Writer.GetCatalog(true);
+                return _writer.GetCatalog(true);
             }
         }
 
-        public void Delete(string path)
+        public void TsSave(TimeSeries ts)
         {
-            _Writer.DeleteRecord(path);
+            _writer.Write(ts);
         }
 
-        public void InsertEmptyTimeSeries(DssPath path)
+        public void PdSave(PairedData pd)
         {
-            TimeSeries ts = new TimeSeries();
-            ts.Path = path;
-            _Writer.Write(ts);
-        }
-
-        public void AppendToRegularTimeSeries(DssPath path, TimeSeries ts)
-        {
-            ts.Path = path;
-            _Writer.Write(ts);
-        }
-
-        public void AppendToIrregularTimeSeries(DssPath path, TimeSeries ts)
-        {
-            ts.Path = path;
-            _Writer.Write(ts);
-        }
-
-        public void RemoveFromIrregularTimeSeries(DssPath path, int valueIndex)
-        {
-            var cur_st = _Writer.GetTimeSeries(path);
-
-            // remove value from value array in TimeSeries
-            var valueList = cur_st.Values.ToList();
-            valueList.RemoveAt(valueIndex);
-            cur_st.Values = valueList.ToArray();
-
-            // remove respected time stamp for removed value in value array
-            var dateList = cur_st.Times.ToList();
-            dateList.RemoveAt(valueIndex);
-            cur_st.Times = dateList.ToArray();
-            
+            _writer.Write(pd);
         }
 
     }

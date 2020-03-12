@@ -12,6 +12,7 @@ namespace WpfCatalogExplorer
     {
         public Rounding round = Rounding.None;
         public TimeWindow.ConsecutiveValueCompression compression = TimeWindow.ConsecutiveValueCompression.None;
+        public DssFile File;
         public enum Rounding
         {
             None,
