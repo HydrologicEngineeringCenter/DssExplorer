@@ -12,19 +12,28 @@ namespace WpfCatalogExplorer
     public class DssDataTable : System.ComponentModel.INotifyPropertyChanged
     {
         private DataTable _table = new DataTable();
+        private List<TimeSeriesPoint> _points = new List<TimeSeriesPoint>();
         public object Record;
         private CatalogProperties _catalogProperties;
         public DataTable Table
         {
             get { return _table; }
         }
+
+        public List<TimeSeriesPoint> Points
+        {
+            get { return _points; }
+        }
+
         public DssDataTable(TimeSeries ts, CatalogProperties catalogProperties)
         {
             Record = ts;
             _catalogProperties = catalogProperties;
             _table = ts.ToDataTable();
+            _points = ts.ToTimeSeriesPoints();
             RoundValues(ts, catalogProperties);
             NotifyPropertyChanged(nameof(Table));
+            NotifyPropertyChanged(nameof(Points));
         }
 
         public DssDataTable(PairedData pd, CatalogProperties catalogProperties)

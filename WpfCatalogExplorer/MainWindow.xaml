@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCatalogExplorer"
         mc:Ignorable="d"
-        DataContext="{Binding DssTable}"
+        DataContext="{Binding DssCatalogTable}"
         Title="DSS Explorer" Height="679.5" Width="963.5" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,1">
         <Grid.RowDefinitions>

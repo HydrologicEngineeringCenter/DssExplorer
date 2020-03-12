@@ -8,7 +8,13 @@
         Height="450" Width="800"
         DataContext="{Binding DssDataTable}" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="dg" ItemsSource="{Binding Path=Table}" Margin="0,23,0,0" Loaded="dg_Loaded"/>
+        <DataGrid x:Name="dg" ItemsSource="{Binding Path=Points, UpdateSourceTrigger=PropertyChanged}" Margin="0,23,0,0" Loaded="dg_Loaded" LoadingRow="dg_LoadingRow" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date/Time" Binding="{Binding Path=DateTime}"/>
+                <DataGridTextColumn Header="Value" Binding="{Binding Path=Value}"/>
+                <DataGridTextColumn Header="Quality" Binding="{Binding Path=Quality}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem x:Name="FileMenu" Header="File" Height="23" Width="40">
                 <MenuItem Header="Save" Click="Save"/>

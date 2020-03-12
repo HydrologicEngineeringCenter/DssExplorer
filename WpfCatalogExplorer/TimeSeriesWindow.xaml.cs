@@ -1,6 +1,7 @@
 ﻿using Hec.Dss;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +19,9 @@ namespace WpfCatalogExplorer
     /// <summary>
     /// Interaction logic for TimeSeriesWindow.xaml
     /// </summary>
-    public partial class TimeSeriesWindow : Window
+    public partial class TimeSeriesWindow : Window, System.ComponentModel.INotifyPropertyChanged
     {
+
         public TimeSeriesWindow(TimeSeries ts, CatalogProperties catalogProperties)
         {
             InitializeComponent();
@@ -70,6 +72,17 @@ namespace WpfCatalogExplorer
         private void dg_Loaded(object sender, RoutedEventArgs e)
         {
             HideColumn("Quality");
+        }
+
+        protected virtual void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void dg_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 }
