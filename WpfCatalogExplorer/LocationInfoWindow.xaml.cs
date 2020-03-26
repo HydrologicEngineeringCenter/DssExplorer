@@ -38,20 +38,12 @@ namespace WpfCatalogExplorer
         {
             InitializeComponent();
             DataContext = this;
-            this.li = li;
-            NotifyPropertyChanged(nameof(CoordinateSystem));
-            
+            this.li = li;            
         }
 
         public void DisableEditFeatures()
         {
 
         }
-        
-        protected virtual void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

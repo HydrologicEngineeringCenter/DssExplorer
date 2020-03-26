@@ -19,7 +19,7 @@ namespace WpfCatalogExplorer
     /// <summary>
     /// Interaction logic for TimeSeriesWindow.xaml
     /// </summary>
-    public partial class TimeSeriesWindow : Window, System.ComponentModel.INotifyPropertyChanged
+    public partial class TimeSeriesWindow : Window
     {
         private TimeSeries ts { get { return ((TimeSeries)((DssDataTable)DataContext).Record); } }
         public TimeSeriesWindow(TimeSeries ts, CatalogProperties catalogProperties, DssFile dssFile)
@@ -79,6 +79,8 @@ namespace WpfCatalogExplorer
                 newTs.Qualities = qualities.ToArray();
 
             TsSaveEvent(newTs);
+            MessageBox.Show("Time Series has been saved.");
+
         }
 
         private void SaveAs(object sender, RoutedEventArgs e)
@@ -104,12 +106,6 @@ namespace WpfCatalogExplorer
         {
             HideColumn("Quality");
         }
-
-        protected virtual void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void dg_LoadingRow(object sender, DataGridRowEventArgs e)
         {

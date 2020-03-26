@@ -39,6 +39,7 @@ namespace WpfCatalogExplorer
         private void Save(object sender, RoutedEventArgs e)
         {
             PdSaveEvent(pd);
+            MessageBox.Show("Paired Data has been saved.");
         }
 
         private void SaveAs(object sender, RoutedEventArgs e)
