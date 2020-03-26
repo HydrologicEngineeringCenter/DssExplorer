@@ -21,11 +21,11 @@ namespace WpfCatalogExplorer
     /// </summary>
     public partial class TimeSeriesWindow : Window
     {
-        private TimeSeries ts { get { return ((TimeSeries)((DssDataTable)DataContext).Record); } }
+        private TimeSeries ts { get { return ((TimeSeries)((DssDataTableVM)DataContext).Record); } }
         public TimeSeriesWindow(TimeSeries ts, CatalogProperties catalogProperties, DssFile dssFile)
         {
             InitializeComponent();
-            DataContext = new DssDataTable(ts, catalogProperties);
+            DataContext = new DssDataTableVM(ts, catalogProperties);
             this.Title = ts.Path.FullPath;
             TsSaveEvent += dssFile.TsSave;
         }

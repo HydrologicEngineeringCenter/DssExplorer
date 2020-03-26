@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WpfCatalogExplorer
 {
-    public class DssDataTable : System.ComponentModel.INotifyPropertyChanged
+    public class DssDataTableVM : System.ComponentModel.INotifyPropertyChanged
     {
         private DataTable _table = new DataTable();
         private List<TimeSeriesPoint> _points = new List<TimeSeriesPoint>();
@@ -25,7 +25,7 @@ namespace WpfCatalogExplorer
             get { return _points; }
         }
 
-        public DssDataTable(TimeSeries ts, CatalogProperties catalogProperties)
+        public DssDataTableVM(TimeSeries ts, CatalogProperties catalogProperties)
         {
             Record = ts;
             _catalogProperties = catalogProperties;
@@ -36,7 +36,7 @@ namespace WpfCatalogExplorer
             NotifyPropertyChanged(nameof(Points));
         }
 
-        public DssDataTable(PairedData pd, CatalogProperties catalogProperties)
+        public DssDataTableVM(PairedData pd, CatalogProperties catalogProperties)
         {
             Record = pd;
             _catalogProperties = catalogProperties;

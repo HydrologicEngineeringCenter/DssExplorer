@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace WpfCatalogExplorer
 {
-    class DssCatalogTable : System.ComponentModel.INotifyPropertyChanged
+    class DssCatalogTableVM : System.ComponentModel.INotifyPropertyChanged
     {
         private string _filePath;
         private System.Data.DataTable _table;

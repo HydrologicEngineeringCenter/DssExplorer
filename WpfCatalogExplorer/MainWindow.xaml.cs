@@ -24,12 +24,12 @@ namespace WpfCatalogExplorer
     public partial class MainWindow : Window
     {
         private CatalogProperties catalogProperties;
-        private DssFile dssFile { get { return ((DssCatalogTable)DataContext).File; } }
+        private DssFile dssFile { get { return ((DssCatalogTableVM)DataContext).File; } }
         public MainWindow()
         {
             catalogProperties = new CatalogProperties();
             InitializeComponent();
-            DataContext = new DssCatalogTable();
+            DataContext = new DssCatalogTableVM();
         }
 
         private void OpenDssFile(object sender, RoutedEventArgs e)
@@ -38,11 +38,11 @@ namespace WpfCatalogExplorer
             dlg.Filter = "DSS files|*.dss";
             if (dlg.ShowDialog() == true)
             {
-                DssCatalogTable catalog = (DssCatalogTable)DataContext;
+                DssCatalogTableVM catalog = (DssCatalogTableVM)DataContext;
                 catalog.FilePath = dlg.FileName;
                 this.Title = "DSS Explorer: " + dlg.FileName;
 
-                catalogProperties.File = ((DssCatalogTable)DataContext).File;
+                catalogProperties.File = ((DssCatalogTableVM)DataContext).File;
 
             }
         }
@@ -53,7 +53,7 @@ namespace WpfCatalogExplorer
                 return;
 
             DssPath dssPath = (DssPath)dataGrid.SelectedItem;
-            DssCatalogTable catalog = (DssCatalogTable)DataContext;
+            DssCatalogTableVM catalog = (DssCatalogTableVM)DataContext;
             if (dssPath.RecordType == RecordType.RegularTimeSeries || dssPath.RecordType == RecordType.IrregularTimeSeries)
             {
                 TimeSeries ts = catalog.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);
@@ -80,7 +80,7 @@ namespace WpfCatalogExplorer
                 return;
 
             DssPath dssPath = (DssPath)dataGrid.SelectedItem;
-            DssCatalogTable catalog = (DssCatalogTable)DataContext;
+            DssCatalogTableVM catalog = (DssCatalogTableVM)DataContext;
             if (dssPath.RecordType == RecordType.RegularTimeSeries || dssPath.RecordType == RecordType.IrregularTimeSeries)
             {
                 TimeSeries ts = catalog.File.GetTimeSeries(dssPath, compression: catalogProperties.compression);

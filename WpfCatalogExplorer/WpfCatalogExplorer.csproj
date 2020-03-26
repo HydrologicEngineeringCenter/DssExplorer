@@ -136,7 +136,7 @@
     <Compile Include="PairedDataWindow.xaml.cs">
       <DependentUpon>PairedDataWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DssDataTable.cs" />
+    <Compile Include="DssDataTableVM.cs" />
     <Compile Include="TimeSeriesWindow.xaml.cs">
       <DependentUpon>TimeSeriesWindow.xaml</DependentUpon>
     </Compile>
@@ -174,7 +174,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DssCatalogTable.cs" />
+    <Compile Include="DssCatalogTableVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

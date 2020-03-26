@@ -20,11 +20,11 @@ namespace WpfCatalogExplorer
     /// </summary>
     public partial class PairedDataWindow : Window
     {
-        private PairedData pd { get { return ((PairedData)((DssDataTable)DataContext).Record); } }
+        private PairedData pd { get { return ((PairedData)((DssDataTableVM)DataContext).Record); } }
         public PairedDataWindow(PairedData pd, CatalogProperties catalogProperties, DssFile dssFile)
         {
             InitializeComponent();
-            DataContext = new DssDataTable(pd, catalogProperties);
+            DataContext = new DssDataTableVM(pd, catalogProperties);
             this.Title = pd.Path;
 
             PdSaveEvent += dssFile.PdSave;
