@@ -54,14 +54,6 @@ namespace WpfCatalogExplorer
                 points.Add((TimeSeriesPoint)dg.Items[i]);
             }
 
-            var newTs = new TimeSeries();
-
-            newTs.Path = ts.Path;
-            newTs.Units = ts.Units;
-            newTs.DataType = ts.DataType;
-            newTs.StartDateTime = points[0].DateTime;
-            newTs.LocationInformation = ts.LocationInformation;
-
             var vals = new List<double>();
             var times = new List<DateTime>();
             var qualities = new List<int>();
@@ -73,12 +65,10 @@ namespace WpfCatalogExplorer
                     qualities.Add(points[i].IntQuality);
             }
 
-            newTs.Values = vals.ToArray();
-            newTs.Times = times.ToArray();
-            if (ts.HasQuality)
-                newTs.Qualities = qualities.ToArray();
+            ts.Values = vals.ToArray();
+            ts.Times = times.ToArray();
 
-            TsSaveEvent(newTs);
+            TsSaveEvent(ts);
             MessageBox.Show("Time Series has been saved.");
 
         }
