@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCatalogExplorer"
+        xmlns:Hec.Dss="clr-namespace:Hec.Dss;assembly=Hec.Dss"
         mc:Ignorable="d"
         Height="450" Width="800"
         DataContext="{Binding DssDataTable}" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
@@ -13,6 +14,7 @@
                 <DataGridTextColumn Header="Date/Time" Binding="{Binding Path=DateTime}"/>
                 <DataGridTextColumn Header="Value" Binding="{Binding Path=Value}"/>
                 <DataGridTextColumn Header="Quality" Binding="{Binding Path=Quality}"/>
+                
             </DataGrid.Columns>
         </DataGrid>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
