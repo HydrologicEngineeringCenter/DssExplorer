@@ -25,7 +25,7 @@ namespace WpfCatalogExplorer
         {
             InitializeComponent();
             DataContext = new DssDataTableVM(pd, catalogProperties);
-            this.Title = pd.Path;
+            this.Title = pd.Path.FullPath;
 
             PdSaveEvent += dssFile.PdSave;
         }
